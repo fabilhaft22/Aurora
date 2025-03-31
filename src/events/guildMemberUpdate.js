@@ -5,6 +5,8 @@ module.exports = {
     name: Events.GuildMemberUpdate,
     async execute(oldMember, newMember) {
 
+        const logChannel = newUser.guild.channels.cache.get(process.env.memberLogChannel)
+
         if (oldMember.nickname !== newMember.nickname) {
             const embed = new EmbedBuilder()
                 .setTitle("Username changed")
@@ -22,7 +24,6 @@ module.exports = {
             else if (newMember.nickname === null) embed.addFields({ name: "", value: `**Before:** ${oldMember.nickname}\n**+After:** none` })
             else embed.addFields({ name: "", value: `**Before:** ${oldMember.nickname}\n**+After:** ${newMember.nickname}` })
 
-            const logChannel = newUser.client.channels.cache.get(process.env.memberLogChannel)
             return logChannel.send({ embeds: [embed] })
         }
 
@@ -71,11 +72,10 @@ module.exports = {
                 )
                 .setColor("Blue")
                 .setFooter({
-                    text: newMember.id
+                    text: `ID: ${newMember.id}`
                 })
                 .setTimestamp(Date.now())
 
-            const logChannel = newMember.client.channels.cache.get(process.env.memberLogChannel)
             return logChannel.send({ embeds: [embed] })
         }
         else if (added.size > 0) {
@@ -90,11 +90,10 @@ module.exports = {
                 )
                 .setColor("Blue")
                 .setFooter({
-                    text: newMember.id
+                    text: `ID: ${newMember.id}`
                 })
                 .setTimestamp(Date.now())
 
-            const logChannel = newMember.client.channels.cache.get(process.env.memberLogChannel)
             return logChannel.send({ embeds: [embed] })
         }
         else if (removed.size > 0) {
@@ -109,11 +108,10 @@ module.exports = {
                 )
                 .setColor("Blue")
                 .setFooter({
-                    text: newMember.id
+                    text: `ID: ${newMember.id}`
                 })
                 .setTimestamp(Date.now())
 
-            const logChannel = newMember.client.channels.cache.get(process.env.memberLogChannel)
             return logChannel.send({ embeds: [embed] })
         }
 

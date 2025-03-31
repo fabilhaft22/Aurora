@@ -3,7 +3,7 @@ const { Events, AuditLogEvent, EmbedBuilder } = require("discord.js");
 module.exports = {
     name: Events.GuildMemberRemove,
     async execute(member) {
-        const logChannel = member.client.channels.cache.get(process.env.memberLogChannel);
+        const logChannel = member.guild.channels.cache.get(process.env.memberLogChannel);
         const guild = member.guild;
 
         const roles = member.roles.cache
@@ -41,7 +41,7 @@ module.exports = {
                     )
                     .setColor("Red")
                     .setFooter({
-                        text: member.user.id
+                        text: `ID: ${member.user.id}`
                     })
                     .setTimestamp(Date.now())
 
@@ -75,7 +75,7 @@ module.exports = {
                     )
                     .setColor("Red")
                     .setFooter({
-                        text: member.user.id
+                        text: `ID: ${member.user.id}`
                     })
                     .setTimestamp(Date.now())
 
@@ -97,7 +97,7 @@ module.exports = {
             )
             .setColor("Red")
             .setFooter({
-                text: member.user.id
+                text: `ID: ${member.user.id}`
             })
             .setTimestamp(Date.now())
 

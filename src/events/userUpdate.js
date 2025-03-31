@@ -4,6 +4,8 @@ const { Events, EmbedBuilder } = require("discord.js")
 module.exports = {
     name: Events.UserUpdate,
     async execute(oldUser, newUser) {
+        const logChannel = newUser.guild.channels.cache.get(process.env.memberLogChannel)
+
         if (oldUser.username !== newUser.username) {
             const embed = new EmbedBuilder()
                 .setTitle("Username changed")
@@ -18,7 +20,6 @@ module.exports = {
                 .setTimestamp(Date.now())
                 .setColor("Blue")
 
-            const logChannel = newUser.client.channels.cache.get(process.env.memberLogChannel)
             logChannel.send({ embeds: [embed] })
         }
         else if (oldUser.displayAvatarURL() !== newUser.displayAvatarURL()) {
@@ -30,13 +31,12 @@ module.exports = {
                 })
                 .addFields({ name: "User", value: `<@${newUser.id}>` })
                 .setFooter({
-                    text: newUser.id
+                    text: `ID: ${newUser.id}`
                 })
                 .setTimestamp(Date.now())
                 .setColor("Blue")
                 .setThumbnail(newUser.displayAvatarURL())
 
-            const logChannel = newUser.client.channels.cache.get(process.env.memberLogChannel)
             logChannel.send({ embeds: [embed] })
         }
     }

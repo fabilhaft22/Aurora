@@ -4,6 +4,7 @@ const { Events, EmbedBuilder } = require("discord.js")
 module.exports = {
     name: Events.MessageDelete,
     async execute(message) {
+        const logChannel = message.guild.channels.cache.get(process.env.messageLogChannel) //our logging channel
         const embed = new EmbedBuilder()
             .setTitle(`Message deleted in ${message.channel.name}`)
             .setAuthor({
@@ -15,12 +16,11 @@ module.exports = {
                 { name: "", value: `Message ID: ${message.id}` }
             )
             .setFooter({
-                text: message.author.id
+                text: `ID: ${message.author.id}`
             })
             .setTimestamp(Date.now())
             .setColor("Red")
 
-        const logChannel = message.client.channels.cache.get(process.env.messageLogChannel) //our logging channel
         logChannel.send({ embeds: [embed] })
     }
 }

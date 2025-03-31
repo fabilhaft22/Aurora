@@ -4,6 +4,7 @@ const {Events, EmbedBuilder} = require("discord.js")
 module.exports = {
     name: Events.MessageUpdate,
     async execute(oldMessage, newMessage){
+        const logChannel = newMessage.guild.channels.cache.get(process.env.messageLogChannel) //our logging channel
 
         if(newMessage.author.bot) return;
 
@@ -19,11 +20,10 @@ module.exports = {
             })
             .setColor("Blue")
             .setFooter({
-                text: newMessage.author.id
+                text: `ID: ${newMessage.author.id}`
             })
             .setTimestamp(Date.now())
 
-            const logChannel = newMessage.client.channels.cache.get(process.env.messageLogChannel) //our logging channel
             logChannel.send({embeds: [embed]})
 
     }
