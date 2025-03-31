@@ -1,4 +1,5 @@
-const {Events} = require("discord.js")
+require("dotenv").config()
+const {Events, EmbedBuilder} = require("discord.js")
 const {createCanvas, loadImage} = require("canvas")
 const fetch = require('node-fetch'); // Use 'require' for node-fetch 2.x
 const sharp = require('sharp'); // Use 'require' for sharp
@@ -6,7 +7,7 @@ const sharp = require('sharp'); // Use 'require' for sharp
 module.exports = {
     name: Events.GuildMemberAdd,
     async execute(member) {
-        const welcomeChannel = await member.guild.channels.fetch("1355330003365134337") //welcome channel
+        //const welcomeChannel = await member.guild.channels.fetch("1355330003365134337") //welcome channel
 
         // Get the user's profile picture URL (author's PFP) with .png format
         const pfpUrl = member.displayAvatarURL({ format: "png", size: 256 });
@@ -74,12 +75,32 @@ module.exports = {
 
         // Send the canvas as an image
         const attachment = canvas.toBuffer();
-        welcomeChannel.send({
+        /*welcomeChannel.send({
             content: `Hi <@${member.id}>, welcome to **${member.guild.name}!**`,
             files: [{
                 attachment: attachment,
                 name: "custom-image.png",
             }],
-        });
+        });*/
+    
+        const embed = new EmbedBuilder()
+            .setTitle("Member Joined")
+            .setAuthor({
+                name: member.user.username,
+                iconURL: member.displayAvatarURL()
+            })
+            .addFields(
+                {name: "user", value: `<@${member.id}>`},
+                {name: "", value: `member #${member.client.users.cache.size}`},
+                {name: "Account creation", value: `<t:${Math.floor(member.user.createdAt / 1000)}:R>`}
+            )
+            .setColor("Green")
+            .setFooter({
+                text: member.id
+            })
+            .setTimestamp(Date.now())
+    
+        const logChannel = member.client.channels.cache.get(process.env.memberLogChannel)
+        return logChannel.send({embeds: [embed]})
     }
 }

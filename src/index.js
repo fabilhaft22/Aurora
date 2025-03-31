@@ -12,7 +12,10 @@ const client = new Client({
 	intents: [
 		131071,
 		GatewayIntentBits.DirectMessages,
-		GatewayIntentBits.MessageContent
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildPresences
 	],
 	partials: [
 		Partials.Channel,
