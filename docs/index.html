@@ -6,15 +6,17 @@
     <title>Aurora</title>
 
     <link rel="stylesheet" href="style.css">
-    <script src="app.js"></script>
 </head>
 <body>
     <header>
-        <nav>
+        <nav class="websitenavigator">
             <div>
                 <ul>
                     <li>
                         <a href="#introduction">Introduction</a>
+                    </li>
+                    <li>
+                        <a href="#documentation">Documentation</a>
                     </li>
                     <li>
                         <a href="TOS.html">Terms of Service</a>
@@ -28,20 +30,122 @@
     </header>
 
     <main>
+        <!-- Introduction Section -->
         <section id="introduction">
             <h1>Welcome to Aurora!</h1>
-            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ3bXUyYmlybDFqMGhubXBpNjEwM2o1djIwdHozYjBib2Npd3U1aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7HdoZs3NVkph07J66x/giphy.gif">
-
+            <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeGZ3bXUyYmlybDFqMGhubXBpNjEwM2o1djIwdHozYjBib2Npd3U1aiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7HdoZs3NVkph07J66x/giphy.gif" alt="Aurora Bot">
 
             <h3>What is Aurora?</h3>
-            <p>Aurora is a private discord bot for the discord server <a href="https://discord.gg/ARZkDGjDCF">Aurora!</a>
-            <br>It helps us at Aurora manage our server and customise it in more advanced ways than would normally be possible.</p>
+            <p>Aurora is a private discord bot for the discord server <a href="https://discord.gg/ARZkDGjDCF">Aurora!</a></p>
+            <p>It helps us at Aurora manage our server and customize it in more advanced ways than would normally be possible.</p>
 
             <h3>Can I get Aurora myself?</h3>
-            <p>Due to the bot being a private bot for our server, it is specialised for our server and wont work on other servers.
-            <br>However, the bot is partly open source, so you can take a look at the source code and take inspiration off of it for your
-            <br>own discord bot. </p>
+            <p>Due to the bot being a private bot for our server, it is specialized for our server and won't work on other servers.</p>
+            <p>However, the bot is partly open source, so you can take a look at the <a href="https://github.com/fabilhaft22/Aurora">source code</a> and take inspiration for your own discord bot.</p>
+        </section>
+
+        <!-- Command Documentation Section -->
+        <section id="documentation">
+            <h1>Bot Command Documentation</h1>
+            <!--basic commands documentation-->
+            <h3>Basic bot commands</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <div class="basicSwitch-container">
+                                <label class="basicSwitch">
+                                    <input type="checkbox" id="basicToggleCommands">
+                                    <span class="basicSlider"></span>
+                                </label>
+                                <span id="basicToggleLabel">Prefix</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="basicPrefix">!level {user} (opt)</td>
+                        <td class="basicSlash hidden">/level {user} (opt)</td>
+                        <td>Shows the level of the user. If no user is set, it will show your own level</td>
+                    </tr>
+                    <tr>
+                        <td class="basicPrefix">!leaderboard {amount}</td>
+                        <td class="basicSlash hidden">/leaderboard {amount}</td>
+                        <td>Bans a user</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <h3>Moderation bot commands</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                        <th>Required permissions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3">
+                            <div class="moderationSwitch-container">
+                                <label class="moderationSwitch">
+                                    <input type="checkbox" id="moderationToggleCommands">
+                                    <span class="moderationSlider"></span>
+                                </label>
+                                <span id="moderationToggleLabel">Prefix</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="moderationPrefix">!ban {user} {reason}(opt)</td>
+                        <td class="moderationSlash hidden">/ban {user} {reason}(opt)</td>
+                        <td>Bans a member</td>
+                        <td>Ban members</td>
+                    </tr>
+                    <tr>
+                        <td class="moderationPrefix">!unban {targetId}</td>
+                        <td class="moderationSlash hidden">/unban {targetId}</td>
+                        <td>unbans a member</td>
+                        <td>Ban members</td>
+                    </tr>
+                    <tr>
+                        <td class="moderationPrefix">!kick {user} {reason}(opt)</td>
+                        <td class="moderationSlash hidden">/kick {user} {reason}(opt)</td>
+                        <td>Kicks a member</td>
+                        <td>Kick members</td>
+                    </tr>
+                    <tr>
+                        <td class="moderationPrefix">!timeout {user} {duration} {reason}(opt)</td>
+                        <td class="moderationSlash hidden">/timeout {user} {duration} {reason}(opt)</td>
+                        <td>Times a member out for a given amount of time</td>
+                        <td>Moderate members</td>
+                    </tr>
+                    <tr>
+                        <td class="moderationPrefix">!purge {amount}</td>
+                        <td class="moderationSlash hidden">/purge {amount}</td>
+                        <td>Deletes a given amount of messages from the current channel</td>
+                        <td>Manage messages</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
     </main>
+
+    <footer>
+        <p>© 2025 Aurora. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://github.com/fabilhaft22/Aurora" target="_blank">GitHub</a>
+            <a href="https://discord.gg/ARZkDGjDCF" target="_blank">Discord</a>
+        </div>
+    </footer>
+    
+    <script src="app.js"></script>
 </body>
 </html>

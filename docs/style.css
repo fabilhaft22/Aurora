@@ -1,13 +1,29 @@
-body,html{ margin: 0;padding: 0;  height: 100%;text-align: center; background-color: ghostwhite;}
-body{
-    margin-left: 4%; margin-right: 4%;
+body,html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    text-align: center;
+    background-color: ghostwhite;
 }
-li{list-style-type: none;}
-li{transition: all 300ms; -webkit-transition: all 300ms; -moz-transition: all 300ms; -o-transition: all 300ms;}
-section{margin-left: 20px;margin-right: 20px}
 
+body {
+    margin-left: 4%;
+    margin-right: 4%;
+}
 
-header{
+main {
+    padding-bottom: 5%;
+}
+footer{
+    padding-bottom: 3%;
+}
+
+li {
+    list-style-type: none;
+    font-size: 100%;
+}
+
+header {
     margin: 0px;
     margin-right: -4%;
     margin-left: -4%;
@@ -20,52 +36,133 @@ header{
     background-color: white;
 }
 
-h1, h2, h3, p, #TOSList li, #privacyPolicyList li{
+h1, h2, h3, p {
     font-family: Tahoma, "Trebuchet MS", sans-serif;
 }
 
-h1{
-    color:green;
+h1 {
+    color: green;
     font-size: 175%;
 }
 
-p, #TOSList li{
+p, td {
     font-size: 20px;
-    
 }
 
-header nav{
+.websitenavigator {
     float: right;
     margin: 0px 50px 0px 0px;
 }
-header nav ul li{
-    float:left;
+
+.websitenavigator ul li {
+    float: left;
     margin-right: 16px;
 }
-header nav ul li:hover{
+
+.websitenavigator ul li:hover {
     margin-top: 5px;
 }
 
-header nav ul li a{  
+.websitenavigator ul li a {
     text-decoration: none;
-    color:black;
-    font-family:'roboto slab';
+    color: black;
+    font-family: 'Roboto Slab';
 }
 
 #introduction {
     margin-top: 75px;
 }
 
-#introduction a {
-    text-decoration: none;
+#documentation {
+    margin-top: 75px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-#TOS {
-    margin-top: 75px;
-    text-align: left;
+#documentation h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
-#privacyPolicy {
-    margin-top: 75px;
-    text-align: left;
+table {
+    width: 50%; /* Fixed width to keep the table centered */
+    margin: 20px auto; /* Centering the table */
+    border-collapse: collapse;
+    position: relative;
+    margin-top: 50px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.basicSwitch-container, .moderationSwitch-container {
+    position: absolute;
+    top: -30px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.basicSwitch, .moderationSwitch {
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+    position: relative;
+}
+
+.basicSwitch input, .moderationSwitch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.basicSlider, .moderationSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 24px;
+    transition: 0.4s;
+}
+
+.basicSlider:before, .moderationSlider::before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .basicSlider {
+    background-color: #2196F3;
+}
+
+input:checked + .moderationSlider {
+    background-color: #2196F3;
+}
+
+input:checked + .basicSlider:before {
+    transform: translateX(26px);
+}
+
+input:checked + .moderationSlider:before {
+    transform: translateX(26px);
+}
+
+.hidden {
+    display: none;
+}
+
+#basicToggleLabel, #moderationToggleLabel {
+    font-size: 16px;
+    font-weight: normal;
 }
