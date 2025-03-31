@@ -4,7 +4,10 @@ module.exports = {
     name: Events.ChannelDelete,
     async execute(channel) {
         const logChannel = channel.guild.channels.cache.get(process.env.serverLogChannel)
+        let category;
 
+        if(channel.parent !== null) category = channel.parent.name;
+        else category = "none"
         if (channel.isVoiceBased()) {
             const embed = new EmbedBuilder()
                 .setTitle("Voice channel deleted")
@@ -12,7 +15,7 @@ module.exports = {
                     name: "",
                     value: `
                     **Name:** ${channel.name}
-                    **Category:** ${channel.parent.name}`
+                    **Category:** ${category}`
                 })
                 .setColor("Red")
                 .setFooter({
@@ -28,7 +31,7 @@ module.exports = {
                     name: "",
                     value: `
                     **Name:** ${channel.name}
-                    **Category:** ${channel.parent.name}`
+                    **Category:** ${category}`
                 })
                 .setColor("Red")
                 .setFooter({
