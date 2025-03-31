@@ -1,0 +1,71 @@
+body,html{ margin: 0;padding: 0;  height: 100%;text-align: center; background-color: ghostwhite;}
+body{
+    margin-left: 4%; margin-right: 4%;
+}
+li{list-style-type: none;}
+li{transition: all 300ms; -webkit-transition: all 300ms; -moz-transition: all 300ms; -o-transition: all 300ms;}
+section{margin-left: 20px;margin-right: 20px}
+
+
+header{
+    margin: 0px;
+    margin-right: -4%;
+    margin-left: -4%;
+    width: 100%;
+    z-index: 3;
+    height: 50px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    background-color: white;
+}
+
+h1, h2, h3, p, #TOSList li, #privacyPolicyList li{
+    font-family: Tahoma, "Trebuchet MS", sans-serif;
+}
+
+h1{
+    color:green;
+    font-size: 175%;
+}
+
+p, #TOSList li{
+    font-size: 20px;
+    
+}
+
+header nav{
+    float: right;
+    margin: 0px 50px 0px 0px;
+}
+header nav ul li{
+    float:left;
+    margin-right: 16px;
+}
+header nav ul li:hover{
+    margin-top: 5px;
+}
+
+header nav ul li a{  
+    text-decoration: none;
+    color:black;
+    font-family:'roboto slab';
+}
+
+#introduction {
+    margin-top: 75px;
+}
+
+#introduction a {
+    text-decoration: none;
+}
+
+#TOS {
+    margin-top: 75px;
+    text-align: left;
+}
+
+#privacyPolicy {
+    margin-top: 75px;
+    text-align: left;
+}
