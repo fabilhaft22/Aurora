@@ -7,13 +7,13 @@ const { ban } = require("../functions/ban");
 const { unban } = require("../functions/unban");
 const { purge } = require("../functions/purge");
 const { getLevel } = require("../functions/getLevel")
+const { leaderboard } = require("../functions/leaderboard")
 
 module.exports = {
     name: Events.MessageCreate,
     async execute(message) {
         if (message.author.bot) return;
-
-
+        if (!message.guild) return;
 
         //timeout chat command!
         if (message.content.toLowerCase().startsWith("!timeout")) {
@@ -36,7 +36,7 @@ module.exports = {
             //check if user is properly inputted
             if (isNaN(parseInt(target))) message.reply("You messed up the formatting when tagging the person to receive the timeout")
 
-            let user 
+            let user
             try {
                 //fetch the proper target object
                 user = await message.guild.members.cache.get(target)
@@ -239,12 +239,48 @@ module.exports = {
             const parts = message.content.split(" ")
 
             if (parts.length <= 1) {
-                getLevel(message, message.member)
+                getLevel(message, message.member.id)
                 return;
+            } else {
+                let target = parts[1];
+
+                // Extract ID from mention
+                if (target.startsWith("<@") && target.endsWith(">")) {
+                    target = target.replace(/\D/g, ""); // Remove non-numeric characters
+                }
+
+                // Check if target is a valid number (user ID)
+                if (isNaN(target)) {
+                    message.reply("You messed up the formatting when tagging the person");
+                    return;
+                }
+
+                getLevel(message, target)
             }
+
         }
 
+        //Leaderboard command!
+        if (message.content.toLowerCase().startsWith("!leaderboard")) {
+            const parts = message.content.split(" ")
 
+            if (parts.length <= 1) {
+                getLevel(message, message.member.id)
+                return;
+            } else {
+                let amount = parseInt(parts[1]);
+
+                // Check if target is a valid number (user ID)
+                if (isNaN(amount)) {
+                    message.reply("You messed up the formatting when tagging the person");
+                    return;
+                }
+
+                leaderboard(message, amount)
+            }
+
+
+        }
 
 
         // xp stuff

@@ -2,26 +2,26 @@ require('dotenv').config();
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits, ActivityType, EmbedBuilder, Partials} = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits, ActivityType, EmbedBuilder, Partials } = require('discord.js');
 const { REST, Routes } = require('discord.js');
 
 const token = process.env.TOKEN;
 const clientId = process.env.CLIENTID;
 
 const client = new Client({
-    intents: [
-        131071,
-        GatewayIntentBits.DirectMessages,
-        GatewayIntentBits.MessageContent
-    ],
-    partials: [
-        Partials.Channel,
-        Partials.Message,
+	intents: [
+		131071,
+		GatewayIntentBits.DirectMessages,
+		GatewayIntentBits.MessageContent
+	],
+	partials: [
+		Partials.Channel,
+		Partials.Message,
 		Partials.Reaction,
 		Partials.GuildMember,
 		Partials.GuildScheduledEvent,
 		Partials.User
-    ]
+	]
 });
 
 
@@ -74,7 +74,10 @@ for (const folder of commandFolders) {
 		const filePath = path.join(commandsPath, file);
 		const command = require(filePath);
 		if ('data' in command && 'execute' in command) {
-			commands.push(command.data.toJSON());
+			const commandJSON = command.data.toJSON();
+			commandJSON.dmPermission = false; // Disable DM usage by default
+			commands.push(commandJSON);
+
 		} else {
 			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}

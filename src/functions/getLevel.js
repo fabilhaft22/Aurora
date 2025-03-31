@@ -4,10 +4,12 @@ const { respondRealCallType } = require('./callType');
 const { EmbedBuilder } = require("discord.js");
 
 async function getLevel(call, target) {
-    let user = await User.findOne({ userId: target.id });
+    let user = await User.findOne({ userId: target });
+
+    target = call.client.users.cache.get(target)
 
     if (!user) {
-        respondRealCallType(call, "You don't have any level data yet.");
+        respondRealCallType(call, `**${target.username}** does not have any level data yet!`);
         return;
     }
 
@@ -22,10 +24,6 @@ async function getLevel(call, target) {
 
     const embed = new EmbedBuilder()
         .setTitle("Level info!")
-        .setAuthor({
-            name: target.user.username,
-            iconURL: target.user.displayAvatarURL() // Set the user's avatar as the small icon
-        })
         .addFields(
             { name: "Level", value: `**Level ${user.level}**` },
             { name: "XP", value: `${user.xp.toString()}/${xpToLevelUp.toString()}` },
@@ -33,6 +31,17 @@ async function getLevel(call, target) {
         )
         .setColor("Blue")
         .setTimestamp(Date.now());
+
+    try {
+        embed.setAuthor({
+            name: target.username,
+            iconURL: target.displayAvatarURL() // Set the user's avatar as the small icon
+        })
+    } catch (error) {
+        embed.setAuthor({
+            name: "Could not find target username"
+        })
+    }
 
     call.reply({ embeds: [embed] });
 }

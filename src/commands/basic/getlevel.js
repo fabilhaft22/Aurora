@@ -9,6 +9,6 @@ module.exports = {
     async execute(interaction) {
         let target = interaction.options.getUser('user')
         if(!target) target = interaction.member
-        getLevel(interaction, target)
+        getLevel(interaction, target.id)
     }
 }
