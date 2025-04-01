@@ -5,17 +5,17 @@ module.exports = {
     name: Events.GuildMemberUpdate,
     async execute(oldMember, newMember) {
 
-        const logChannel = newUser.guild.channels.cache.get(process.env.memberLogChannel)
+        const logChannel = newMember.guild.channels.cache.get(process.env.memberLogChannel)
 
         if (oldMember.nickname !== newMember.nickname) {
             const embed = new EmbedBuilder()
-                .setTitle("Username changed")
+                .setTitle("Nickname changed")
                 .setAuthor({
-                    name: newUser.username,
-                    iconURL: newUser.displayAvatarURL()
+                    name: newMember.username,
+                    iconURL: newMember.displayAvatarURL()
                 })
                 .setFooter({
-                    text: newUser.id
+                    text: newMember.id
                 })
                 .setTimestamp(Date.now())
                 .setColor("Blue")

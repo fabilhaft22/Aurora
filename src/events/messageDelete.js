@@ -4,6 +4,8 @@ const { Events, EmbedBuilder } = require("discord.js")
 module.exports = {
     name: Events.MessageDelete,
     async execute(message) {
+        if(message.author.id === process.env.CLIENTID) return;
+
         const logChannel = message.guild.channels.cache.get(process.env.messageLogChannel) //our logging channel
         const embed = new EmbedBuilder()
             .setTitle(`Message deleted in ${message.channel.name}`)
