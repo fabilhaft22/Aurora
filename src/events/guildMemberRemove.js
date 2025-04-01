@@ -6,6 +6,8 @@ module.exports = {
         const logChannel = member.guild.channels.cache.get(process.env.memberLogChannel);
         const guild = member.guild;
 
+        if (!logChannel) { console.log("failed to find log channel in guildMemberRemove.js(line 6)"); return }
+
         const roles = member.roles.cache
             .filter(role => role.id !== member.guild.id) // Exclude @everyone role
             .map(role => `<@&${role.id}>`) // Format as mention
@@ -36,7 +38,7 @@ module.exports = {
                     .addFields(
                         { name: "The banned user", value: `<@${member.id}>` },
                         { name: "Reason", value: `${reason || "No reason provided."}` },
-                        { name: "joined at", value: `<t:${Math.floor(member.user.createdAt / 1000)}:R>` },
+                        { name: "joined at", value: `<t:${Math.floor(member.joinedAt / 1000)}:R>` },
                         { name: "roles:", value: `${roles}` }
                     )
                     .setColor("Red")
@@ -70,7 +72,7 @@ module.exports = {
                     .addFields(
                         { name: "The kicked user", value: `<@${member.id}>` },
                         { name: "Reason", value: `${reason || "No reason provided."}` },
-                        { name: "joined at", value: `<t:${Math.floor(member.user.createdAt / 1000)}:R>` },
+                        { name: "joined at", value: `<t:${Math.floor(member.joinedAt / 1000)}:R>` },
                         { name: "roles:", value: `${roles}` }
                     )
                     .setColor("Red")
@@ -92,7 +94,7 @@ module.exports = {
             })
             .addFields(
                 { name: "User", value: `<@${member.id}>` },
-                { name: "joined at", value: `<t:${Math.floor(member.user.createdAt / 1000)}:R>` },
+                { name: "joined at", value: `<t:${Math.floor(member.joinedAt / 1000)}:R>` },
                 { name: "roles:", value: `${roles}` }
             )
             .setColor("Red")

@@ -5,6 +5,8 @@ module.exports = {
     async execute(role){
         const logChannel = role.guild.channels.cache.get(process.env.serverLogChannel)
 
+        if(!logChannel) {console.log("Failed to find log channel (roleCreate.js line 6)"); return}
+
         const embed = new EmbedBuilder()
             .setTitle("A new role was created")
             .addFields({

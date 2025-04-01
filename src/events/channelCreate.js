@@ -7,6 +7,8 @@ module.exports = {
 
         let category;
 
+        if(!logChannel) {console.log("Couldnt find logChannel(channelCreate.js line 6"); return;}
+
         if(channel.parent !== null) category = channel.parent.name;
         else category = "none"
         if (channel.isVoiceBased()) {

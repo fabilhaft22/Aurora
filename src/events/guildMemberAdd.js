@@ -1,13 +1,17 @@
 require("dotenv").config()
-const {Events, EmbedBuilder} = require("discord.js")
-const {createCanvas, loadImage} = require("canvas")
+const { Events, EmbedBuilder } = require("discord.js")
+const { createCanvas, loadImage } = require("canvas")
 const fetch = require('node-fetch'); // Use 'require' for node-fetch 2.x
 const sharp = require('sharp'); // Use 'require' for sharp
 
 module.exports = {
     name: Events.GuildMemberAdd,
     async execute(member) {
-        const welcomeChannel = await member.guild.channels.fetch("1355330003365134337") //welcome channel
+
+        const welcomeChannel = member.guild.channels.cache.get(process.env.welcomeChannel) //welcome channel
+        const logChannel = member.guild.channels.cache.get(process.env.memberLogChannel)
+
+        if(!welcomeChannel || !logChannel) {console.log("failed to find welcome or log channel (guildMemberAdd.js line 8 & 9)"); return}
 
         // Get the user's profile picture URL (author's PFP) with .png format
         const pfpUrl = member.displayAvatarURL({ format: "png", size: 256 });
@@ -63,7 +67,7 @@ module.exports = {
         const x = canvas.width / 2;
         const y = canvas.height / 2 - 75; // Move the PFP 75px higher
         const radius = 75;
-        
+
         // Clip the context to a circle (after drawing the text)
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -82,7 +86,7 @@ module.exports = {
                 name: "custom-image.png",
             }],
         });
-    
+
         const embed = new EmbedBuilder()
             .setTitle("Member Joined")
             .setAuthor({
@@ -90,17 +94,17 @@ module.exports = {
                 iconURL: member.displayAvatarURL()
             })
             .addFields(
-                {name: "user", value: `<@${member.id}>`},
-                {name: "", value: `member #${member.client.users.cache.size}`},
-                {name: "Account creation", value: `<t:${Math.floor(member.user.createdAt / 1000)}:R>`}
+                { name: "user", value: `<@${member.id}>` },
+                { name: "", value: `member #${member.client.users.cache.size}` },
+                { name: "Account creation", value: `<t:${Math.floor(member.user.createdAt / 1000)}:R>` }
             )
             .setColor("Green")
             .setFooter({
                 text: `ID: ${member.id}`
             })
             .setTimestamp(Date.now())
-    
-        const logChannel = member.client.channels.cache.get(process.env.memberLogChannel)
-        return logChannel.send({embeds: [embed]})
+
+        return logChannel.send({ embeds: [embed] })
+
     }
 }

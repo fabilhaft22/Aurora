@@ -5,7 +5,7 @@ module.exports = {
     async execute(oldChannel, newChannel) {
         const logChannel = newChannel.guild.channels.cache.get(process.env.serverLogChannel);
 
-
+        if(!logChannel) {console.log("failed to find logChannel (channelUpdate.js line 6)"); return}
 
         let changes = [];
 
@@ -31,6 +31,6 @@ module.exports = {
             .setFooter({ text: `Role ID: ${newChannel.id}` })
             .setTimestamp();
 
-        if (logChannel) logChannel.send({ embeds: [embed] });
+        logChannel.send({ embeds: [embed] });
     }
 }

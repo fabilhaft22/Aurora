@@ -6,6 +6,8 @@ module.exports = {
 
         const logChannel = newState.guild.channels.cache.get(process.env.voiceLogChannel)
 
+        if(!logChannel) {console.log("Failed to find log channel (voiceStateUpdate.js line 7)"); return}
+
         const member = newState.guild.members.cache.get(newState.id)
         let channel;
         //console.log(newState)

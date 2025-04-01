@@ -6,6 +6,8 @@ module.exports = {
     async execute(oldMessage, newMessage){
         const logChannel = newMessage.guild.channels.cache.get(process.env.messageLogChannel) //our logging channel
 
+        if(!logChannel) {console.log("Failed to find log channel (messageUpdate.js line 7)"); return}
+
         if(newMessage.author.bot) return;
 
         const embed = new EmbedBuilder()

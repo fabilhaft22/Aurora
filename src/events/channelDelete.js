@@ -8,6 +8,8 @@ module.exports = {
 
         if(channel.parent !== null) category = channel.parent.name;
         else category = "none"
+
+        if(!logChannel) {console.log("failed to find logChannel (channelDelete.js line 6"); return;}
         if (channel.isVoiceBased()) {
             const embed = new EmbedBuilder()
                 .setTitle("Voice channel deleted")

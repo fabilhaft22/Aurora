@@ -7,15 +7,17 @@ module.exports = {
 
         const logChannel = newMember.guild.channels.cache.get(process.env.memberLogChannel)
 
+        if(!logChannel) {console.log("failed to find logChannel (guildMemberUpdate.js line 8)"); return}
+
         if (oldMember.nickname !== newMember.nickname) {
             const embed = new EmbedBuilder()
                 .setTitle("Nickname changed")
                 .setAuthor({
-                    name: newMember.username,
+                    name: newMember.user.username,
                     iconURL: newMember.displayAvatarURL()
                 })
                 .setFooter({
-                    text: newMember.id
+                    text: `ID: ${newMember.id}`
                 })
                 .setTimestamp(Date.now())
                 .setColor("Blue")

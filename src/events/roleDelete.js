@@ -5,6 +5,8 @@ module.exports = {
     async execute(role) {
         const logChannel = role.guild.channels.cache.get(process.env.serverLogChannel)
 
+        if(!logChannel) {console.log("Failed to find log channel (roleDelete.js line 6)"); return}
+
         const embed = new EmbedBuilder()
             .setTitle(`The role "${role.name} was deleted"`)
             .addFields({

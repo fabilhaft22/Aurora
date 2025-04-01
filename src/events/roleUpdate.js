@@ -8,6 +8,8 @@ module.exports = {
 
         const logChannel = newRole.guild.channels.cache.get(process.env.serverLogChannel);
 
+        if(!logChannel) {console.log("Failed to find log channel (roleUpdate.js line 9)"); return}
+
         const roleId = newRole.id;
         let changes = [];
 
@@ -49,7 +51,7 @@ module.exports = {
                     .setFooter({ text: `Role ID: ${newRole.id}` })
                     .setTimestamp();
 
-                if (logChannel) logChannel.send({ embeds: [embed] });
+                logChannel.send({ embeds: [embed] });
             }, 500);
         }
     }

@@ -5,6 +5,9 @@ module.exports = {
     name: Events.MessageBulkDelete,
     async execute(messages, channel) {
         const logChannel = messages.first().guild.channels.cache.get(process.env.messageLogChannel) //our logging channel
+
+        if(!logChannel) {console.log("failed to find log channel (messageBulkDelete.js line 7)"); return}
+
         let field = ""
         try {
             messages.forEach(message => {

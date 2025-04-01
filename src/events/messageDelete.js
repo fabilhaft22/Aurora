@@ -4,9 +4,18 @@ const { Events, EmbedBuilder } = require("discord.js")
 module.exports = {
     name: Events.MessageDelete,
     async execute(message) {
-        if(message.author.id === process.env.CLIENTID) return;
+        try {
+            if(message.author.id === process.env.CLIENTID) return;
+        } catch (error) {
+            console.log("some error reading message id (messageDelete.js line 8)")
+            return;
+        }
+        
 
         const logChannel = message.guild.channels.cache.get(process.env.messageLogChannel) //our logging channel
+
+        if(!logChannel) {console.log("failed to find log channel(messageDelete.js line 7)"); return}
+
         const embed = new EmbedBuilder()
             .setTitle(`Message deleted in ${message.channel.name}`)
             .setAuthor({
