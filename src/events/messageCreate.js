@@ -7,7 +7,12 @@ const { ban } = require("../functions/ban");
 const { unban } = require("../functions/unban");
 const { purge } = require("../functions/purge");
 const { getLevel } = require("../functions/getLevel")
-const { leaderboard } = require("../functions/leaderboard")
+const { leaderboard } = require("../functions/leaderboard");
+const { claimDaily } = require("../functions/claimDaily");
+const { goWork } = require("../functions/work");
+const { handleXp } = require("../functions/handleXp");
+const { baltop } = require("../functions/balanceLeaderboard");
+const { balance } = require("../functions/getBalance");
 
 module.exports = {
     name: Events.MessageCreate,
@@ -282,68 +287,34 @@ module.exports = {
 
         }
 
-
-        // xp stuff
-
-        // Fetch user data from the database or create a new user if not exists
-        let user = await User.findOne({ userId: message.author.id });
-
-        if (!user) {
-            // Create a new user with default xp and level values
-            user = new User({
-                userId: message.author.id,
-                xp: 0,
-                level: 1,
-                totalXp: 0,
-                lastXPTime: Date.now(),  // Set to current timestamp
-                xpMultiplier: 1,
-                messagesWithMultiplier: 0
-            });
-
+        //economy commands
+        //claim daily
+        if(message.content.toLowerCase().startsWith("!daily")){
+            claimDaily(message)
+            return;
         }
 
-        const currentTime = Date.now();
-        const timeDifference = currentTime - user.lastXPTime;
-
-        // Set the cooldown time (for testing, you can set it to 0)
-        const XP_COOLDOWN = 10 * 1000; // 10 seconds cooldown between XP rewards
-
-        // If the cooldown has passed, award XP
-        if (timeDifference >= XP_COOLDOWN) {
-            // Award XP (random number between 10-25 * multiplier)
-            const awardedXP = (Math.floor(Math.random() * 15) + 10) * user.xpMultiplier;
-            user.xp += awardedXP;
-            user.totalXp += awardedXP;
-
-            // Update the lastXPTime to the current time
-            user.lastXPTime = currentTime;
-
-            // Check if the user has leveled up
-            const xpToLevelUp = getXPForLevel(user.level);
-            while (user.xp >= xpToLevelUp) {
-                user.level++;
-                user.xp = user.xp - xpToLevelUp; // set xp to remaining xp
-
-                // Send a message when the user levels up
-                message.reply(`Congratulations ${message.author.username}! You have leveled up to level ${user.level}!`);
-            }
-
-            // If the user has used their multiplier messages, reset it
-            if (user.messagesWithMultiplier > 0) {
-                user.messagesWithMultiplier--;
-                if (user.messagesWithMultiplier === 0) {
-                    user.xpMultiplier = 1; // Reset to no multiplier
-                }
-            }
-        } else {
-            // If the cooldown hasn't passed, you can optionally inform the user
-            const timeLeft = Math.floor((XP_COOLDOWN - timeDifference) / 1000);
+        //work
+        if(message.content.toLowerCase().startsWith("!work")){
+            goWork(message);
+            return;
         }
 
 
-        await user.save()
+        //baltop
+        if(message.content.toLowerCase().startsWith("!baltop")){
+            baltop(message)
+            return;
+        }
 
+        //balance
+        if(message.content.toLowerCase().startsWith("!balance")){
+            balance(message)
+            return;
+        }
+
+        //xp stuff (now handled in a seperate file)
+        handleXp(message)
 
     }
-
 }

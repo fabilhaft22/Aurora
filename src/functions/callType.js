@@ -22,7 +22,7 @@ function determineCallType(call){
 /**
  * 
  * @param {*} call 
- * @param {Message} message 
+ * @param {string} message 
  * @param {boolean} ephemeral 
  */
 
